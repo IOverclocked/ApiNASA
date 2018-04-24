@@ -5,31 +5,33 @@ const urlImagesApi = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/p
 
 
 $(() => {
-
-    loadHeader(urlAPI);
+    loading();
     loadGallery(urlImagesApi);
 
-})
+    let img = 6;
+
+    $('button').on('click', e => {
+        console.log('Jeswe');
+        $.ajax({
+            url: urlImagesApi
+        }).done(res => {
 
 
-const loadHeader = url => {
+            for (let i = img; i < img+6; i++) {
+                let html = (`<img src="${res.photos[i].img_src}" alt="img"/>`);
+                $('section').append(html);
+            }
 
-    $.ajax({
-        url: url
-    }).done(res => {
+            img += 6;
 
-        $('header').css({
-            'background': "url("+res.url+")"
-        });
-
-
-        console.log(res);
-
-    }).fail(err => {
-        console.log(err);
+        }).fail(err => {
+            console.log(err)
+        })
     })
 
-}
+
+
+})
 
 const loadGallery = url => {
 
@@ -37,14 +39,60 @@ const loadGallery = url => {
         url: url
     }).done(res => {
 
+        if(res == undefined) {
+            console.log("loading");
+        }
         console.log(res.photos);
 
         for (var i = 0; i < 6; i++) {
             $('img').eq(i).attr('src', res.photos[i].img_src);
         }
 
+        $("body").css({
+            background: `url(${res.photos[randLoadImg()].img_src}) no-repeat center/cover fixed`
+        })
+
+        loading();
+
     }).fail(err => {
         console.log(err);
     })
 
+}
+
+const randLoadImg = () => {
+    let nrIMG = Math.floor(Math.random()*856+1);
+
+    return nrIMG;
+}
+
+const loading = () => {
+    $(document).ajaxStart(() => {
+
+        let elH2 = ('<h2></h2>');
+        $('header').append(elH2);
+        $('button').attr('disabled', true)
+
+        let text = "Loading";
+        let counter = 0;
+
+        setInterval(() => {
+
+            text += ".";
+            $('h2').text(text);
+
+            counter++;
+
+            if(counter === 3) {
+                text = "Loading";
+                counter = 0;
+            }
+
+        }, 500)
+    })
+
+    $(document).ajaxComplete(() => {
+        $('button').attr('disabled', false);
+        $('h2').remove();
+    })
 }

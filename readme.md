@@ -1,6 +1,6 @@
 # ApiNASA
 
-This is website, which using external api with photos take by NASA.
+This is website, which uses external api with photos take by NASA.
 
 ## Technologies
 
@@ -24,7 +24,7 @@ If you want run this project, you will need some steps to do:
 ```
 * Next run webpack. When in the main folder, run the command:
 ```bash
-    ./node_modules/.bin/webpack
+   ./node_modules/.bin/webpack
 ```
 ## Demo
 

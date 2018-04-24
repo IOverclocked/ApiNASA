@@ -1,0 +1,35 @@
+$global-bg-color: #191919;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $global-bg-color;
+}
+
+header {
+    margin: 0 auto;
+    widh: 100%;
+    max-width: 1200px;
+    height: 100%;
+    color: #fff;
+}
+
+section {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+    img {
+        flex: 0 1 400px;
+    }
+}

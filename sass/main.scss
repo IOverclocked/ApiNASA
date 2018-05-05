@@ -5,6 +5,25 @@
     font-size: 16px;
 }
 
+.spinner-loader:before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 30px;
+    height: 30px;
+    border-top: 5px solid rgb(0, 255, 163);
+    border-right: 5px solid transparent;
+    animation: spinner 0.7s linear infinite;
+    border-radius: 50%;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 body {
     position: relative;
 }
@@ -104,7 +123,13 @@ footer {
         }
     }
 }
+
 @media (min-width: 720px) {
+    .spinner-loader:before {
+        width: 50px;
+        height: 50px;
+    }
+
     header {
         position: relative;
         background-color: rgba(0, 0, 0, 0.0);

@@ -11,7 +11,7 @@ $(() => {
     let img = 6;
 
     $('button').on('click', e => {
-        console.log('Jeswe');
+
         $.ajax({
             url: urlImagesApi
         }).done(res => {
@@ -72,23 +72,8 @@ const loading = () => {
         let elH2 = ('<h2></h2>');
         $('header').append(elH2);
         $('button').attr('disabled', true)
+        $('h2').addClass('spinner-loader');
 
-        let text = "Loading";
-        let counter = 0;
-
-        setInterval(() => {
-
-            text += ".";
-            $('h2').text(text);
-
-            counter++;
-
-            if(counter === 3) {
-                text = "Loading";
-                counter = 0;
-            }
-
-        }, 500)
     })
 
     $(document).ajaxComplete(() => {

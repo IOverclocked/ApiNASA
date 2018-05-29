@@ -1,45 +1,57 @@
-const urlAPI = "https://api.nasa.gov/planetary/apod?api_key=zUhhKsrSuJSGHV7pjsWlq0BCMYHd1MMazuQ9ZMlP"
-const urlImagesApi = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2018-04-15&api_key=zUhhKsrSuJSGHV7pjsWlq0BCMYHd1MMazuQ9ZMlP"
+
+//Z przykładową datą 2018-04-15
+const urlApi = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2018-04-15&api_key=zUhhKsrSuJSGHV7pjsWlq0BCMYHd1MMazuQ9ZMlP"
 
 $(() => {
 
-    loadGallery(urlImagesApi);
+    preLoader();
+    loadImgToGallery(urlApi);
+    loadMoreImgToGallery(urlApi);
+    preLoader();
 
-    /*$('button').on('click', e => {
+})
+
+const loadMoreImgToGallery = (url) => {
+
+    let amountImg = 0;
+
+    $('button').on('click', (e) => {
+
+        e.preventDefault();
 
         $.ajax({
-            url: urlImagesApi
+            url: urlApi
         }).done(res => {
 
+            for (let i = amountImg; i < amountImg+6; i++) {
 
-            for (let i = img; i < img+6; i++) {
-                let html = (`<img src="${res.photos[i].img_src}" alt="img"/>`);
-                $('section').append(html);
+                let elImg = (`<img src="${res.photos[i].img_src}" alt="img"/>`);
+                $('section').append(elImg);
+                
             }
 
-            img += 6;
+            amountImg += 6;
 
         }).fail(err => {
             console.log(err)
         })
-    })*/
+    })
 
+}
 
-
-})
-
-const loadGallery = url => {
+const loadImgToGallery = (url) => {
 
     $.ajax({
         url: url
     }).done(res => {
 
-
-        console.log(res.photos[0].img_src);
-
         $("body").css({
-            background: `url(${res.photos[0].img_src}) no-repeat center/cover fixed`
+            background: `url(${res.photos[randomImgWith(res.photos.length)].img_src}) no-repeat center/cover fixed`
         })
+
+        for (let i = 0; i < 6; i++) {
+            $('img').eq(i).attr('src', `${res.photos[i].img_src}`);
+        }
 
     }).fail(err => {
         console.log(err);
@@ -47,14 +59,10 @@ const loadGallery = url => {
 
 }
 
-/*
-const randLoadImg = () => {
-    let nrIMG = Math.floor(Math.random()*856+1);
+const randomImgWith = (nr) => Math.floor(Math.random()*nr+1);
 
-    return nrIMG;
-}
+const preLoader = () => {
 
-const loading = () => {
     $(document).ajaxStart(() => {
 
         let elH2 = ('<h2></h2>');
@@ -65,8 +73,9 @@ const loading = () => {
     })
 
     $(document).ajaxComplete(() => {
+
         $('button').attr('disabled', false);
         $('h2').remove();
+
     })
 }
-*/

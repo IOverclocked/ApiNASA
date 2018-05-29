@@ -12,7 +12,7 @@ App was created at using:
 
 ## Tools
 
-* webpack
+* gulp
 
 ## Instalation
 
@@ -22,9 +22,9 @@ If you want run this project, you will need some steps to do:
 ```bash
     npm install
 ```
-* Next run webpack. When in the main folder, run the command:
+* Next run gulp watcher. When in the main folder, run the command:
 ```bash
-   ./node_modules/.bin/webpack
+   gulp
 ```
 ## Demo
 

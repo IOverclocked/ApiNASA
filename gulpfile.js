@@ -32,4 +32,6 @@ gulp.task('watch', () => {
     gulp.watch("src/index.html", ['html']);
 })
 
+gulp.task('build', ['html', 'sass', 'babel']);
+
 gulp.task('default', ['watch']);

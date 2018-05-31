@@ -11,7 +11,7 @@ gulp.task('html', () => {
 gulp.task('sass', () => {
     gulp.src("src/sass/**/*.scss")
         .pipe(map.init())
-        .pipe(sass())
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(map.write())
         .pipe(gulp.dest("dist/css/"));
 })
